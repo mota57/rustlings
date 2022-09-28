@@ -1,11 +1,13 @@
 // enums1.rs
 // No hints this time! ;)
 
-// I AM NOT DONE
 
 #[derive(Debug)]
 enum Message {
-    // TODO: define a few types of messages as used below
+    Quit, 
+    Echo,
+    Move, 
+    ChangeColor
 }
 
 fn main() {
@@ -13,4 +15,14 @@ fn main() {
     println!("{:?}", Message::Echo);
     println!("{:?}", Message::Move);
     println!("{:?}", Message::ChangeColor);
+    let q = Message::Quit;
+    match q  {
+        Message::Quit => {
+            assert_eq!(1,1);
+        },
+        _ => {
+            assert_eq!(1,0);
+        }
+    }
+    println!("{:?}", Message::Quit);
 }

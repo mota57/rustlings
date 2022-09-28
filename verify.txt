@@ -1,0 +1,17 @@
+⚠️  Compiling of exercises/variables/variables4.rs failed! Please try again. Here's the output:
+[0m[1m[38;5;9merror[E0384][0m[0m[1m: cannot assign twice to immutable variable `x`[0m
+[0m [0m[0m[1m[38;5;12m--> [0m[0mexercises/variables/variables4.rs:9:5[0m
+[0m  [0m[0m[1m[38;5;12m|[0m
+[0m[1m[38;5;12m7[0m[0m [0m[0m[1m[38;5;12m| [0m[0m    let x = 3;[0m
+[0m  [0m[0m[1m[38;5;12m| [0m[0m        [0m[0m[1m[38;5;12m-[0m
+[0m  [0m[0m[1m[38;5;12m| [0m[0m        [0m[0m[1m[38;5;12m|[0m
+[0m  [0m[0m[1m[38;5;12m| [0m[0m        [0m[0m[1m[38;5;12mfirst assignment to `x`[0m
+[0m  [0m[0m[1m[38;5;12m| [0m[0m        [0m[0m[1m[38;5;12mhelp: consider making this binding mutable: `mut x`[0m
+[0m[1m[38;5;12m8[0m[0m [0m[0m[1m[38;5;12m| [0m[0m    println!("Number {}", x);[0m
+[0m[1m[38;5;12m9[0m[0m [0m[0m[1m[38;5;12m| [0m[0m    x = 5; // don't change this line[0m
+[0m  [0m[0m[1m[38;5;12m| [0m[0m    [0m[0m[1m[38;5;9m^^^^^[0m[0m [0m[0m[1m[38;5;9mcannot assign twice to immutable variable[0m
+
+[0m[1m[38;5;9merror[0m[0m[1m: aborting due to previous error[0m
+
+[0m[1mFor more information about this error, try `rustc --explain E0384`.[0m
+
