@@ -14,7 +14,10 @@
 
 // Execute `rustlings hint quiz3` or use the `hint` watch subcommand for a hint.
 
-// I AM NOT DONE
+// grade range (e.g. 1.0 -> 5.5).
+// grade range (e.g. A+ -> F-). 
+// need to print both
+
 
 pub struct ReportCard {
     pub grade: f32,
@@ -24,8 +27,14 @@ pub struct ReportCard {
 
 impl ReportCard {
     pub fn print(&self) -> String {
+
+        let mut grades = vec!["A+","A-","B+","B-","C+","C-","F+","F-"];
+        let mut index = (self.grade * 2.0_f32 -2.0_f32).floor() as usize;
+        let letter = grades.get(index).unwrap();
+
+
         format!("{} ({}) - achieved a grade of {}",
-            &self.student_name, &self.student_age, &self.grade)
+            &self.student_name, &self.student_age, letter)
     }
 }
 
@@ -35,14 +44,43 @@ mod tests {
 
     #[test]
     fn generate_numeric_report_card() {
-        let report_card = ReportCard {
+        let mut report_card = ReportCard {
             grade: 2.1,
             student_name: "Tom Wriggle".to_string(),
             student_age: 12,
         };
         assert_eq!(
             report_card.print(),
-            "Tom Wriggle (12) - achieved a grade of 2.1"
+            "Tom Wriggle (12) - achieved a grade of B+"
+        );
+        report_card.grade = 1.6;
+        assert_eq!(
+            report_card.print(),
+            "Tom Wriggle (12) - achieved a grade of A-"
+        );
+
+        report_card.grade = 3.4;
+        assert_eq!(
+            report_card.print(),
+            "Tom Wriggle (12) - achieved a grade of C+"
+        );
+
+        report_card.grade = 3.7;
+        assert_eq!(
+            report_card.print(),
+            "Tom Wriggle (12) - achieved a grade of C-"
+        );
+
+        report_card.grade = 4.49;
+        assert_eq!(
+            report_card.print(),
+            "Tom Wriggle (12) - achieved a grade of F+"
+        );
+
+        report_card.grade = 4.5;
+        assert_eq!(
+            report_card.print(),
+            "Tom Wriggle (12) - achieved a grade of F-"
         );
     }
 
@@ -56,7 +94,7 @@ mod tests {
         };
         assert_eq!(
             report_card.print(),
-            "Gary Plotter (11) - achieved a grade of A+"
+            "Gary Plotter (11) - achieved a grade of B+"
         );
     }
 }

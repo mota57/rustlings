@@ -13,6 +13,11 @@ struct Color {
     green: u8,
     blue: u8,
 }
+impl Color  {
+    fn new(red:u8, green:u8,blue:u8) -> Self {
+        Color {red,green,blue}
+    }
+}
 
 // We will use this error type for these `TryFrom` conversions.
 #[derive(Debug, PartialEq)]
@@ -23,7 +28,6 @@ enum IntoColorError {
     IntConversion,
 }
 
-// I AM NOT DONE
 
 // Your task is to complete this implementation
 // and return an Ok result of inner type Color.
@@ -38,6 +42,14 @@ enum IntoColorError {
 impl TryFrom<(i16, i16, i16)> for Color {
     type Error = IntoColorError;
     fn try_from(tuple: (i16, i16, i16)) -> Result<Self, Self::Error> {
+        if tuple.0  < 0 || tuple.0 > 255 || tuple.1  < 0 || tuple.1 > 255 || tuple.2  < 0 || tuple.2 > 255 {
+            return Result::Err(IntoColorError::IntConversion);
+        }
+        let x = tuple.0 as u8;
+        let x2 = tuple.1 as u8;
+        let x3 = tuple.2 as u8;
+
+        return Ok(Color::new(x,x2,x3));
     }
 }
 
@@ -45,6 +57,16 @@ impl TryFrom<(i16, i16, i16)> for Color {
 impl TryFrom<[i16; 3]> for Color {
     type Error = IntoColorError;
     fn try_from(arr: [i16; 3]) -> Result<Self, Self::Error> {
+
+        let out_of_range = arr.iter().filter(|&&x| x < 0 || x > 255).count();
+        if out_of_range > 0 {
+             return Result::Err(IntoColorError::IntConversion);
+        }
+        let mut arr1 = arr.iter();
+        let x = (*arr1.next().unwrap()) as u8;
+        let y = (*arr1.next().unwrap()) as u8;
+        let z = (*arr1.next().unwrap()) as u8;
+        return Ok(Color::new(x,y,z));
     }
 }
 
@@ -52,6 +74,24 @@ impl TryFrom<[i16; 3]> for Color {
 impl TryFrom<&[i16]> for Color {
     type Error = IntoColorError;
     fn try_from(slice: &[i16]) -> Result<Self, Self::Error> {
+
+        if slice.len() != 3  {
+            return Result::Err(IntoColorError::BadLen);
+        }
+        //assert_eq!(slice.len(),3);
+
+
+        let out_of_range = slice.iter().filter(|&&x| x < 0 || x > 255).count();
+        if out_of_range > 0 {
+             return Result::Err(IntoColorError::IntConversion);
+        }
+
+        let mut arr1 = slice.iter();
+        let x = (*arr1.next().unwrap()) as u8;
+        let y = (*arr1.next().unwrap()) as u8;
+        let z = (*arr1.next().unwrap()) as u8;
+
+        return Ok(Color::new(x,y,z));
     }
 }
 

@@ -17,9 +17,18 @@ fn main() {
         println!("Neither alphabetic nor numeric!");
     }
 
-    let your_chracter = '7'; // Finish this line like the example! What's your favorite character?
+    // Finish this line like the example! What's your favorite character?
     // Try a letter, try a number, try a special character, try a character
     // from a different language than your own, try an emoji!
+    eval_char('L');
+    eval_char('7');
+    eval_char('@');
+    eval_char('😄');
+    println!("U+1F600");
+}
+
+fn eval_char(your_character:char) {
+    
     if your_character.is_alphabetic() {
         println!("Alphabetical!");
     } else if your_character.is_numeric() {

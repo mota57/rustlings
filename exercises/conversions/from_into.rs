@@ -13,6 +13,7 @@ struct Person {
 // when the provided string is not convertible into a Person object
 impl Default for Person {
     fn default() -> Person {
+        println!("calling default");
         Person {
             name: String::from("John"),
             age: 30,
@@ -35,10 +36,32 @@ impl Default for Person {
 // If while parsing the age, something goes wrong, then return the default of Person
 // Otherwise, then return an instantiated Person object with the results
 
-// I AM NOT DONE
 
 impl From<&str> for Person {
     fn from(s: &str) -> Person {
+       let len_parts = s.split(",").count();
+        if len_parts <=1 || len_parts > 2 {
+            return Person::default();
+        } else {
+            let mut parts = s.split(",");
+            let mut name = parts.next().unwrap().to_string();
+            if name.trim().len() == 0 {
+                return Person::default();
+
+            }
+
+            let age_parse = parts.next().unwrap().parse::<usize>();
+            
+            if age_parse.is_err() {
+                return Person::default();
+            }
+
+            return Person {
+                age: age_parse.unwrap(),
+                name
+            }
+
+        }
     }
 }
 
